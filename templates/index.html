@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Python Multi-Tool</title>
-<<<<<<< HEAD
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; }
         h1, h2 { color: #333; }
@@ -12,14 +11,11 @@
         th { background-color: #f2f2f2; }
         section { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
     </style>
-=======
->>>>>>> 10fda3ee829bc08639f7c812b83034ffba1483ab
 </head>
 <body>
     <h1>Python Multi-Tool Website</h1>
 
     <!-- Double a Number -->
-<<<<<<< HEAD
     <section>
         <h2>Double a Number</h2>
         <form method="POST">
@@ -47,75 +43,56 @@
         {% endif %}
     </section>
 
-    <!-- Atomic Mass Calculator -->
-    <section>
-        <h2>Atomic Mass Calculator</h2>
-        <form method="POST">
-            <label>Element:</label>
-            <select name="element" required>
-                <option value="">Select</option>
-                {% for el in atomic_masses.keys() %}
-                    <option value="{{ el }}">{{ el }}</option>
-                {% endfor %}
-            </select>
+<!-- Atomic Mass Calculator -->
+<section>
+    <h2>Atomic Mass Calculator</h2>
 
-            <label>Number of Atoms:</label>
-            <input type="number" name="num_atoms" min="1" required>
-
-            <button type="submit" name="add_element">Add Element</button>
-            <button type="submit" name="calculate_mass">Calculate Molecular Mass</button>
-            <button type="submit" name="clear_formula">Clear</button>
-        </form>
-
-        {% if results.atomic_mass_message %}
-            <p><strong>{{ results.atomic_mass_message }}</strong></p>
-        {% endif %}
-
-        {% if molecule_formula %}
-            <h3>Current Formula</h3>
-            <table>
-                <tr>
-                    <th>Element</th>
-                    <th>Number of Atoms</th>
-                </tr>
-                {% for el, count in molecule_formula.items() %}
-                <tr>
-                    <td>{{ el }}</td>
-                    <td>{{ count }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
-    </section>
-</body>
-</html>
-=======
-    <h2>Double a Number</h2>
+    <!-- Form to add element -->
     <form method="POST">
-        <input type="text" name="double_number" placeholder="Enter a number" required>
-        <button type="submit">Double it</button>
-    </form>
-    {% if double_result %}
-        <p><strong>{{ double_result }}</strong></p>
-    {% endif %}
-
-    <hr>
-
-    <!-- CM ↔ Inch Converter -->
-    <h2>CM ↔ Inch Converter</h2>
-    <form method="POST">
-        <input type="text" name="convert_value" placeholder="Enter value" required>
-        <select name="direction" required>
-            <option value="cm_to_inch">CM → Inch</option>
-            <option value="inch_to_cm">Inch → CM</option>
+        <label>Element:</label>
+        <select name="element" required>
+            <option value="">Select</option>
+            {% for el in atomic_masses.keys() %}
+                <option value="{{ el }}">{{ el }}</option>
+            {% endfor %}
         </select>
-        <button type="submit">Convert</button>
+
+        <label>Number of Atoms:</label>
+        <input type="number" name="num_atoms" min="1" required>
+
+        <button type="submit" name="action" value="add_element">Add Element</button>
     </form>
-    {% if convert_result %}
-        <p><strong>{{ convert_result }}</strong></p>
+
+    <!-- Form to calculate -->
+    <form method="POST">
+        <button type="submit" name="action" value="calculate_mass">Calculate Molecular Mass</button>
+    </form>
+
+    <!-- Form to clear -->
+    <form method="POST">
+        <button type="submit" name="action" value="clear_formula">Clear</button>
+    </form>
+
+    {% if results.atomic_mass_message %}
+        <p><strong>{{ results.atomic_mass_message }}</strong></p>
     {% endif %}
 
+    {% if molecule_formula %}
+        <h3>Current Formula</h3>
+        <table>
+            <tr>
+                <th>Element</th>
+                <th>Number of Atoms</th>
+            </tr>
+            {% for el, count in molecule_formula.items() %}
+            <tr>
+                <td>{{ el }}</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</section>
 </body>
 </html>
 
->>>>>>> 10fda3ee829bc08639f7c812b83034ffba1483ab

@@ -48,8 +48,9 @@ def index():
             except ValueError:
                 results["convert_result"] = "Enter a valid number!"
 
-        # Atomic Mass Calculator
-        elif "add_element" in request.form:
+        action = request.form.get("action")
+
+        if action == "add_element":
             element = request.form.get("element")
             num_atoms = request.form.get("num_atoms")
             try:
@@ -61,11 +62,11 @@ def index():
             except ValueError:
                 results["atomic_mass_message"] = "Enter a valid number of atoms!"
 
-        elif "calculate_mass" in request.form:
+        elif action == "calculate_mass":
             total_mass = sum(atomic_masses[el] * count for el, count in molecule_formula.items())
             results["atomic_mass_message"] = f"Molecular Mass: {total_mass:.4f} u"
 
-        elif "clear_formula" in request.form:
+        elif action == "clear_formula":
             molecule_formula.clear()
 
     return render_template("index.html", 
