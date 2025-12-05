@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Multi-Tool</title>
+</head>
+<body>
+    <h1>Python Multi-Tool Website</h1>
+
+    <!-- Double a Number -->
+    <h2>Double a Number</h2>
+    <form method="POST">
+        <input type="text" name="double_number" placeholder="Enter a number" required>
+        <button type="submit">Double it</button>
+    </form>
+    {% if double_result %}
+        <p><strong>{{ double_result }}</strong></p>
+    {% endif %}
+
+    <hr>
+
+    <!-- CM ↔ Inch Converter -->
+    <h2>CM ↔ Inch Converter</h2>
+    <form method="POST">
+        <input type="text" name="convert_value" placeholder="Enter value" required>
+        <select name="direction" required>
+            <option value="cm_to_inch">CM → Inch</option>
+            <option value="inch_to_cm">Inch → CM</option>
+        </select>
+        <button type="submit">Convert</button>
+    </form>
+    {% if convert_result %}
+        <p><strong>{{ convert_result }}</strong></p>
+    {% endif %}
+
+</body>
+</html>
+
