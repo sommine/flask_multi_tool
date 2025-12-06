@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>CM ↔ Inch Converter</h2>
+
+<form method="POST">
+    <input type="text" name="convert_value" placeholder="Enter value" required>
+    <select name="direction" required>
+        <option value="cm_to_inch">CM → Inch</option>
+        <option value="inch_to_cm">Inch → CM</option>
+    </select>
+    <button type="submit">Convert</button>
+</form>
+
+{% if result %}
+<p><strong>{{ result }}</strong></p>
+{% endif %}
+
+<!-- Back to Home button -->
+<hr>
+<button onclick="window.location.href='/'">🏠 Back to Home</button>
+
+
+{% endblock %}
+
+

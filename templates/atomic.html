@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Atomic Mass Calculator</h2>
+
+<form method="POST">
+    <label>Element:</label>
+    <select name="element" required>
+        <option value="">Select</option>
+        {% for el in atomic_masses.keys() %}
+            <option value="{{ el }}" {% if request.form.get('element') == el %}selected{% endif %}>
+                {{ el }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>Number of Atoms:</label>
+    <input type="number" name="num_atoms" min="1" required
+           value="{{ request.form.get('num_atoms', '') }}">
+
+    <br><br>
+    <button type="submit" name="action" value="add_element">Add Element</button>
+    <button type="submit" name="action" value="calculate_mass">Calculate Mass</button>
+    <button type="submit" name="action" value="clear_formula">Clear</button>
+</form>
+
+{% if message %}
+<p><strong>{{ message }}</strong></p>
+{% endif %}
+
+{% if molecule %}
+<h3>Current Formula</h3>
+<table>
+    <tr><th>Element</th><th>Count</th></tr>
+    {% for el, count in molecule.items() %}
+    <tr><td>{{ el }}</td><td>{{ count }}</td></tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+<!-- Back to Home button -->
+<hr>
+<button onclick="window.location.href='/'">🏠 Back to Home</button>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+body { font-family: Arial; padding: 20px; }
+header { margin-bottom: 20px; }
+#tool-list button {
+    display: block;
+    width: 250px;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+}
+footer {
+    font-size: 12px;
+    color: #555;
+    margin-top: 30px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+.disclaimer { font-style: italic; }

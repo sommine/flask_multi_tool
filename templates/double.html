@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Double a Number</h2>
+
+<form method="POST">
+    <input type="text" name="double_number" placeholder="Enter a number" required>
+    <button type="submit">Double it</button>
+</form>
+
+{% if result %}
+<p><strong>{{ result }}</strong></p>
+{% endif %}
+
+
+<!-- Back to Home button -->
+<hr>
+<button onclick="window.location.href='/'">🏠 Back to Home</button>
+
+
+{% endblock %}
+
