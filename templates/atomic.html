@@ -1,44 +1,79 @@
 {% extends "base.html" %}
 {% block content %}
+
 <h2>Atomic Mass Calculator</h2>
 
+<!-- Add element form -->
 <form method="POST">
     <label>Element:</label>
     <select name="element" required>
-        <option value="">Select</option>
         {% for el in atomic_masses.keys() %}
-            <option value="{{ el }}" {% if request.form.get('element') == el %}selected{% endif %}>
-                {{ el }}
-            </option>
+            <option value="{{ el }}">{{ el }}</option>
         {% endfor %}
     </select>
 
     <label>Number of Atoms:</label>
-    <input type="number" name="num_atoms" min="1" required
-           value="{{ request.form.get('num_atoms', '') }}">
+    <input type="number" name="num_atoms" min="1" required>
 
-    <br><br>
-    <button type="submit" name="action" value="add_element">Add Element</button>
-    <button type="submit" name="action" value="calculate_mass">Calculate Mass</button>
-    <button type="submit" name="action" value="clear_formula">Clear</button>
+    <button type="submit" name="action" value="add_element">Add</button>
 </form>
 
+<!-- Calculate molecular mass -->
+<form method="POST">
+    <button type="submit" name="action" value="calculate_mass">Calculate Molecular Mass</button>
+</form>
+
+<!-- Clear formula -->
+<form method="POST">
+    <button type="submit" name="action" value="clear_formula">Clear Formula</button>
+</form>
+
+<!-- Feedback message -->
 {% if message %}
 <p><strong>{{ message }}</strong></p>
 {% endif %}
 
+<!-- Current formula table -->
 {% if molecule %}
 <h3>Current Formula</h3>
 <table>
     <tr><th>Element</th><th>Count</th></tr>
     {% for el, count in molecule.items() %}
-    <tr><td>{{ el }}</td><td>{{ count }}</td></tr>
+    <tr>
+        <td>{{ el }}</td>
+        <td>{{ count }}</td>
+    </tr>
     {% endfor %}
 </table>
 {% endif %}
 
-<!-- Back to Home button -->
 <hr>
-<button onclick="window.location.href='/'">🏠 Back to Home</button>
 
+<h2>Reaction Mass Calculator</h2>
+
+<form method="POST">
+    <input type="text" name="reaction_input" placeholder="e.g., 2H2 + O2 -> 2H2O" required
+           value="{{ request.form.get('reaction_input', '') }}">
+    <button type="submit" name="action" value="calculate_reaction">Calculate Masses</button>
+</form>
+
+{% if reaction_masses %}
+<h3>Masses of Compounds:</h3>
+<table>
+    <tr><th>Compound</th><th>Coefficient</th><th>Molecular Mass (u)</th></tr>
+    {% for compound, info in reaction_masses.items() %}
+    <tr>
+        <td>{{ compound }}</td>
+        <td>{{ info.coeff }}</td>
+        <td>{{ "%.4f"|format(info.mass) }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+<hr>
+
+<!-- Back to Home button -->
+<button onclick="window.location.href='/'">🏠 Back to Home</button>
+<p>🔒 Disclaimer: All tools are free to use. The author is not responsible for mistakes. © 2025 Sam Schotte</p>
 {% endblock %}

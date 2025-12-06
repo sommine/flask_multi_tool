@@ -1,5 +1,9 @@
 from flask import Blueprint, render_template, request
-from collections import defaultdict
+
+import re
+from collections import defaultdict, namedtuple
+
+CompoundInfo = namedtuple("CompoundInfo", ["coeff", "mass"])
 
 atomic_bp = Blueprint('atomic', __name__)
 
@@ -132,6 +136,7 @@ molecule_formula = defaultdict(int)
 @atomic_bp.route("/atomic", methods=["GET", "POST"])
 def atomic():
     message = ""
+    reaction_masses = {}
     if request.method == "POST":
         action = request.form.get("action")
 
@@ -145,23 +150,80 @@ def atomic():
                     message = f"Added {num_atoms} {element}(s)."
                 else:
                     message = "Invalid element or count!"
-            except:
+            except ValueError:
                 message = "Enter a valid number of atoms!"
 
         elif action == "calculate_mass":
-            if molecule_formula:
-                total_mass = sum(atomic_masses[el] * count for el, count in molecule_formula.items())
-                message = f"Molecular Mass: {total_mass:.4f} u"
-            else:
-                message = "Add at least one element first!"
+            total_mass = sum(atomic_masses[el] * count for el, count in molecule_formula.items())
+            message = f"Molecular Mass: {total_mass:.4f} u"
 
         elif action == "clear_formula":
             molecule_formula.clear()
             message = "Formula cleared."
 
+        elif action == "calculate_reaction":
+            reaction_input = request.form.get("reaction_input", "").strip()
+            if reaction_input:
+                try:
+                    reaction_masses = calculate_reaction_masses(reaction_input)
+                except ValueError as e:
+                    message = str(e)
+            else:
+                message = "Enter a valid reaction!"
+
     return render_template(
         "atomic.html",
         atomic_masses=atomic_masses,
         molecule=dict(molecule_formula),
-        message=message
+        message=message,
+        reaction_masses=reaction_masses
     )
+
+
+def parse_formula(formula):
+    """
+    Returns a dictionary {element: count} from a chemical formula string.
+    Example: "CH3OH" => {"C":1, "H":4, "O":1}
+    """
+    pattern = r'([A-Z][a-z]?)(\d*)'
+    counts = defaultdict(int)
+    for (element, num) in re.findall(pattern, formula):
+        if element not in atomic_masses:
+            raise ValueError(f"Unknown element: {element}")
+        counts[element] += int(num) if num else 1
+    return counts
+
+
+
+
+
+
+def parse_compound(compound_str):
+    """
+    Parse coefficient and formula from a string like '2H2O' or 'H2'.
+    Returns (coeff, formula)
+    """
+    match = re.match(r'(\d*)([A-Za-z0-9]+)', compound_str.strip())
+    if not match:
+        raise ValueError(f"Invalid compound: {compound_str}")
+    coeff = int(match.group(1)) if match.group(1) else 1
+    formula = match.group(2)
+    return coeff, formula
+
+def calculate_reaction_masses(reaction):
+    """
+    Parses a reaction string and returns masses of all compounds.
+    Example input: '2H2 + O2 -> 2H2O'
+    """
+    reaction_masses = {}
+    if '->' not in reaction:
+        raise ValueError("Reaction must have '->' to separate reactants and products.")
+    left, right = reaction.split('->')
+    compounds = left.split('+') + right.split('+')
+
+    for comp in compounds:
+        coeff, formula = parse_compound(comp)
+        formula_counts = parse_formula(formula)
+        mass = sum(atomic_masses[el] * count for el, count in formula_counts.items()) * coeff
+        reaction_masses[formula] = CompoundInfo(coeff=coeff, mass=mass)
+    return reaction_masses
