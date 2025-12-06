@@ -23,32 +23,6 @@ def home():
     return render_template("home.html", epoch=epoch_time, co2=co2_value)
 
 
-# def get_latest_co2():
-#     url = "https://datahub.io/core/co2-ppm/r/co2-mm-mlo.csv"
-#     try:
-#         response = requests.get(url)
-#         response.raise_for_status()
-#         df = pd.read_csv(StringIO(response.text))
-
-#         # Drop rows with missing CO2 value
-#         df = df.dropna(subset=['Average'])
-#         latest = df.iloc[-1]
-
-#         # Use Decimal Date to approximate year and month
-#         decimal_date = latest['Decimal Date']
-#         year = int(decimal_date)
-#         month = int((decimal_date - year) * 12) + 1
-
-#         return {
-#             "co2": latest['Average'],
-#             "year": year,
-#             "month": month
-#         }
-#     except Exception as e:
-#         print("Error fetching CO2:", e)
-#         return {"co2": None, "year": None, "month": None}
-    
-
 
 
 
@@ -59,19 +33,27 @@ def get_latest_co2():
         resp.raise_for_status()
         f = StringIO(resp.text)
         reader = csv.DictReader(f)
-        rows = list(reader)
-        latest = rows[-1]
+        
+        # Filter out rows where 'Date' or 'Average' is empty
+        valid_rows = [row for row in reader if row["Date"] and row["Average"]]
+        if not valid_rows:
+            raise ValueError("No valid rows in CSV")
+
+        latest = valid_rows[-1]
+        print(latest)
 
         # Extract CO2 value
-        co2 = float(latest["Average"]) if latest["Average"] != "" else None
+        co2 = float(latest["Average"])
 
-        # Extract year and month from Date string (format YYYY-MM-DD)
-        date_str = latest["Date"]
-        year, month, _ = map(int, date_str.split("-"))
+        # Extract year and month from Date safely
+        date_parts = latest["Date"].split("-")
+        if len(date_parts) >= 2:
+            year, month = int(date_parts[0]), int(date_parts[1])
+        else:
+            year, month = None, None
 
         return {"co2": co2, "year": year, "month": month}
 
     except Exception as e:
         print("Error fetching CO2:", e)
-        return {"co2": None, "year": None, "month": None}
         return {"co2": None, "year": None, "month": None}
