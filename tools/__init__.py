@@ -61,7 +61,17 @@ def get_latest_co2():
         reader = csv.DictReader(f)
         rows = list(reader)
         latest = rows[-1]
-        return {"co2": float(latest["Average"]), "year": int(latest["Year"]), "month": int(latest["Month"])}
+
+        # Extract CO2 value
+        co2 = float(latest["Average"]) if latest["Average"] != "" else None
+
+        # Extract year and month from Date string (format YYYY-MM-DD)
+        date_str = latest["Date"]
+        year, month, _ = map(int, date_str.split("-"))
+
+        return {"co2": co2, "year": year, "month": month}
+
     except Exception as e:
         print("Error fetching CO2:", e)
+        return {"co2": None, "year": None, "month": None}
         return {"co2": None, "year": None, "month": None}
