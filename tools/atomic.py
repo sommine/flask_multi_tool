@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 
 import re
 from collections import defaultdict, namedtuple
+from . import tools_bp
 
 CompoundInfo = namedtuple("CompoundInfo", ["coeff", "mass"])
 
@@ -132,8 +133,8 @@ atomic_masses = {
 
 
 molecule_formula = defaultdict(int)
-
-@atomic_bp.route("/atomic", methods=["GET", "POST"])
+@tools_bp.route("/atomic", methods=["GET", "POST"])
+#@atomic_bp.route("/atomic", methods=["GET", "POST"])
 def atomic():
     message = ""
     reaction_masses = {}

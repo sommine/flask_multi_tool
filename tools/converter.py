@@ -1,8 +1,10 @@
 from flask import Blueprint, render_template, request
+from . import tools_bp
 
 converter_bp = Blueprint('converter', __name__)
 
-@converter_bp.route("/converter", methods=["GET", "POST"])
+@tools_bp.route("/converter", methods=["GET", "POST"])
+#@converter_bp.route("/converter", methods=["GET", "POST"])
 def converter():
     result = ""
     if request.method == "POST":

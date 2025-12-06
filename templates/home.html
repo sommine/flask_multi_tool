@@ -9,5 +9,36 @@
 <button onclick="window.location.href='/atomic'">Atomic Mass Calculator</button>
 
 <hr>
-<p>🔒 Disclaimer: All tools are free to use. The author is not responsible for mistakes. © 2025 Sam Schotte</p>
+
+<!-- Nerdy Dashboard -->
+<h2>Nerdy Dashboard</h2>
+<p>Epoch / Unix Time: <span id="epoch">{{ epoch }}</span></p>
+<p>Local Time: <span id="localTime">Loading...</span></p>
+<p>UTC Time: <span id="utcTime">Loading...</span></p>
+<p>CO₂ Concentration (ppm) monthly Mauna Loa CO₂ measurements: <span id="co2">{{ co2 if co2 else 'Error fetching data' }}</span></p>
+
+<hr>
+<p>🔒 Disclaimer: All tools are free to use. The author has done their best to avoid mistakes,
+    but cannot be held responsible for any inaccuracies. The apps are free to use, 
+    but the idea and implementation remain the author's intellectual property. The author is not responsible for mistakes. © 2025 Sam Schotte</p>
+
+
+
+
+<script>
+function updateEpoch() {
+    document.getElementById("epoch").textContent = Math.floor(Date.now() / 1000);
+}
+setInterval(updateEpoch, 1000);
+updateEpoch();
+
+function updateClock() {
+    const now = new Date();
+    document.getElementById("localTime").textContent = now.toLocaleString();
+    document.getElementById("utcTime").textContent = now.toUTCString();
+}
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+
 {% endblock %}

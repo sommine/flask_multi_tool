@@ -1,8 +1,10 @@
 from flask import Blueprint, render_template, request
-
+from . import tools_bp
 double_bp = Blueprint('double', __name__)
 
-@double_bp.route("/double", methods=["GET", "POST"])
+@tools_bp.route("/double", methods=["GET", "POST"])
+
+#@double_bp.route("/double", methods=["GET", "POST"])
 def double():
     result = ""
     if request.method == "POST":
