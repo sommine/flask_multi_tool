@@ -8,13 +8,14 @@ from io import StringIO
 tools_bp = Blueprint('tools', __name__)
 
 # Import tools AFTER defining blueprint
-from . import atomic, converter, calculator,line
+from . import atomic, converter, calculator,line,parabolic
 
 # Register tool pages into main blueprint
 tools_bp.register_blueprint(atomic.atomic_bp)
 tools_bp.register_blueprint(converter.converter_bp)
 tools_bp.register_blueprint(calculator.calculator_bp)
 tools_bp.register_blueprint(line.line_bp)
+tools_bp.register_blueprint(parabolic.parabolic_bp)
 
 
 

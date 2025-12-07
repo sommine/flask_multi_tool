@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Quadratic Function: a·x² + b·x + c = 0</h2>
+
+<form method="POST" style="font-size:18px;">
+    <label>
+        a:
+        <input type="number" step="any" name="a" required style="width:80px">
+        · x²
+    </label><br><br>
+
+    <label>
+        b:
+        <input type="number" step="any" name="b" required style="width:80px">
+        · x
+    </label><br><br>
+
+    <label>
+        c:
+        <input type="number" step="any" name="c" required style="width:80px">
+    </label><br><br>
+
+    <button type="submit">Calculate & Plot</button>
+</form>
+
+<hr>
+
+{% if equation %}
+<p><strong>Equation:</strong> {{ equation }}</p>
+{% endif %}
+
+{% if discriminant is not none %}
+<p><strong>Discriminant:</strong> {{ discriminant }}</p>
+{% endif %}
+
+{% if x1 is not none %}
+<p><strong>x-intercept 1:</strong> {{ x1 }}</p>
+{% endif %}
+{% if x2 is not none and x2 != x1 %}
+<p><strong>x-intercept 2:</strong> {{ x2 }}</p>
+{% endif %}
+
+{% if vertex_x is not none %}
+<p><strong>Vertex:</strong> ({{ vertex_x }}, {{ vertex_y }})</p>
+{% endif %}
+
+{% if graph_html %}
+<div>{{ graph_html | safe }}</div>
+{% endif %}
+
+<hr>
+<button onclick="window.location.href='/'">🏠 Back to Home</button>
+
+<p>🔒 Disclaimer: All tools are free to use. The author is not responsible for mistakes. © 2025 Sam Schotte</p>
+{% endblock %}
