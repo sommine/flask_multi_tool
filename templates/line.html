@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Line Equation Calculator</h2>
+
+<form method="POST">
+    <label>a: <input type="number" step="any" name="a" required></label>
+    <label>b: <input type="number" step="any" name="b" required></label>
+    <button type="submit">Calculate</button>
+</form>
+
+{% if equation %}
+<p><strong>Equation:</strong> {{ equation }}</p>
+<p><strong>Slope:</strong> {{ slope }}</p>
+<p><strong>X-intercept:</strong> {{ x_intercept if x_intercept is not none else 'Undefined' }}</p>
+<p><strong>Y-intercept:</strong> {{ y_intercept if y_intercept is not none else 'Undefined' }}</p>
+{% endif %}
+
+{% if graph_html %}
+<div>
+    {{ graph_html | safe }}
+</div>
+{% endif %}
+
+<hr>
+<button onclick="window.location.href='/'">🏠 Back to Home</button>
+<p>🔒 Disclaimer: All tools are free to use. The author is not responsible for mistakes. © 2025 Sam Schotte</p>
+{% endblock %}

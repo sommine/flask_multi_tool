@@ -4,11 +4,18 @@ import csv
 import requests
 from io import StringIO
 
-# Define Blueprint first
+# Create main blueprint
 tools_bp = Blueprint('tools', __name__)
 
-# Import submodules after blueprint
-from . import atomic, converter, double
+# Import tools AFTER defining blueprint
+from . import atomic, converter, calculator,line
+
+# Register tool pages into main blueprint
+tools_bp.register_blueprint(atomic.atomic_bp)
+tools_bp.register_blueprint(converter.converter_bp)
+tools_bp.register_blueprint(calculator.calculator_bp)
+tools_bp.register_blueprint(line.line_bp)
+
 
 
 
