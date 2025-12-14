@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Electron Configuration (Aufbau Principle)</h2>
+
+
+
+
+<form method="POST">
+    <label for="element">Select an element:</label>
+    <select name="element" id="element" required>
+        {% for key in elements.keys() %}
+            <option value="{{ key }}" {% if key == element %}selected{% endif %}>
+                {{ key }}
+            </option>
+        {% endfor %}
+    </select>
+    <button type="submit">Show</button>
+</form>
+
+{% if atomic_data %}
+<hr>
+
+
+<h3>Element: {{ element }} - {{ atomic_data.name }}</h3>
+<p><strong>Atomic number (Z):</strong> {{ atomic_data.Z }}</p>
+<p><strong>Atomic weight (A):</strong> {{ atomic_data.A }}</p>
+<p><strong>Neutrons (N):</strong> {{ atomic_data.N }}</p>
+<p><strong>Protons:</strong> {{ atomic_data.Z }}</p>
+<p><strong>Electrons:</strong> {{ atomic_data.Z }}</p>
+
+<h3>Electron configuration</h3>
+
+<table>
+    <tr>
+        <th>Subshell</th>
+        <th>Orbitals</th>
+    </tr>
+
+    {% for shell in config %}
+    <tr>
+        <td><strong>{{ shell.subshell }}</strong></td>
+        <td>
+            {% for e in shell.orbitals %}
+                <span style="display:inline-block; width:30px; text-align:center; border:1px solid #ccc; margin-right:4px;">
+                    {% if e == 2 %}
+                        ↑↓
+                    {% elif e == 1 %}
+                        ↑
+                    {% else %}
+                        &nbsp;
+                    {% endif %}
+                </span>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endif %}
+
+<hr>
+<button onclick="window.location.href='/'">🏠 Back to Home</button>
+
+{% endblock %}
+
+

@@ -1,0 +1,102 @@
+{
+  "1": {
+    "symbol": "H",
+    "name": "Hydrogen",
+    "atomic_number": 1,
+    "atomic_mass": 1.008,
+    "period": 1,
+    "group": 1,
+    "atomic_radius": 53,
+    "ionization_energy": 1312
+  },
+  "2": {
+    "symbol": "He",
+    "name": "Helium",
+    "atomic_number": 2,
+    "atomic_mass": 4.0026,
+    "period": 1,
+    "group": 18,
+    "atomic_radius": 31,
+    "ionization_energy": 2372
+  },
+  "3": {
+    "symbol": "Li",
+    "name": "Lithium",
+    "atomic_number": 3,
+    "atomic_mass": 6.94,
+    "period": 2,
+    "group": 1,
+    "atomic_radius": 167,
+    "ionization_energy": 520
+  },
+  "4": {
+    "symbol": "Be",
+    "name": "Beryllium",
+    "atomic_number": 4,
+    "atomic_mass": 9.0122,
+    "period": 2,
+    "group": 2,
+    "atomic_radius": 112,
+    "ionization_energy": 900
+  },
+  "5": {
+    "symbol": "B",
+    "name": "Boron",
+    "atomic_number": 5,
+    "atomic_mass": 10.81,
+    "period": 2,
+    "group": 13,
+    "atomic_radius": 87,
+    "ionization_energy": 801
+  },
+  "6": {
+    "symbol": "C",
+    "name": "Carbon",
+    "atomic_number": 6,
+    "atomic_mass": 12.011,
+    "period": 2,
+    "group": 14,
+    "atomic_radius": 67,
+    "ionization_energy": 1086
+  },
+  "7": {
+    "symbol": "N",
+    "name": "Nitrogen",
+    "atomic_number": 7,
+    "atomic_mass": 14.007,
+    "period": 2,
+    "group": 15,
+    "atomic_radius": 56,
+    "ionization_energy": 1402
+  },
+  "8": {
+    "symbol": "O",
+    "name": "Oxygen",
+    "atomic_number": 8,
+    "atomic_mass": 15.999,
+    "period": 2,
+    "group": 16,
+    "atomic_radius": 48,
+    "ionization_energy": 1314
+  },
+  "9": {
+    "symbol": "F",
+    "name": "Fluorine",
+    "atomic_number": 9,
+    "atomic_mass": 18.998,
+    "period": 2,
+    "group": 17,
+    "atomic_radius": 42,
+    "ionization_energy": 1681
+  },
+  "10": {
+    "symbol": "Ne",
+    "name": "Neon",
+    "atomic_number": 10,
+    "atomic_mass": 20.180,
+    "period": 2,
+    "group": 18,
+    "atomic_radius": 38,
+    "ionization_energy": 2081
+  }
+}

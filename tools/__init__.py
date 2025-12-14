@@ -8,7 +8,8 @@ from io import StringIO
 tools_bp = Blueprint('tools', __name__)
 
 # Import tools AFTER defining blueprint
-from . import atomic, converter, calculator,line,parabolic
+#from . import atomic, converter, calculator,line,parabolic,orbitals
+from . import atomic, converter, calculator, line, parabolic, orbitals_page
 
 # Register tool pages into main blueprint
 tools_bp.register_blueprint(atomic.atomic_bp)
@@ -17,6 +18,7 @@ tools_bp.register_blueprint(calculator.calculator_bp)
 tools_bp.register_blueprint(line.line_bp)
 tools_bp.register_blueprint(parabolic.parabolic_bp)
 
+tools_bp.register_blueprint(orbitals_page.orbitals_bp)
 
 
 
